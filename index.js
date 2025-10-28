@@ -7,7 +7,7 @@ const bot = new TelegramBot(TOKEN, {polling: true})
 bot.on("message",function (msg) {
     const chatId = msg.chat.id;
     const text = msg.text;
-    bot.sendMessage(chatId, `Hello Bro -> ${text}`);
+    bot.sendMessage(chatId, `Salom ${text} yaxshimisan ishlar yaxshimi qanday yordam bera olaman?`);
     console.log(msg);
 });
 
