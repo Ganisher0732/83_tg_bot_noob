@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "@types/node-telegram-bot-api": "^0.64.11"
+    "@types/node-telegram-bot-api": "^0.64.11",
+    "nodemon": "^3.1.10"
   },
   "name": "tgbot",
   "version": "1.0.0",
@@ -32,7 +33,10 @@
     "undici-types": "^7.16.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "install": "npm install",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
