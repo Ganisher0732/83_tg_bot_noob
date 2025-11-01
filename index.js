@@ -7,7 +7,7 @@ const bot = new TelegramBot(TOKEN, { polling: true })
 bot.on("message", function (msg) {
     const chatId = msg.chat.id;
     const text = msg.text;
-    bot.sendMessage(chatId, `Salom ${text} yaxshimisan ishlar yaxshimi qanday yordam bera olaman?`);
+    // bot.sendMessage(chatId, `Salom ${text} yaxshimisan ishlar yaxshimi qanday yordam bera olaman?`);
     console.log(msg);
     bot.sendMessage(chatId, `Salom  ${firstname} yaxshimisan ishlar yaxshimi qanday yordam bera olaman?`, {
         reply_markup: {
@@ -15,7 +15,7 @@ bot.on("message", function (msg) {
                 [{ text: "Boshlash" }],
                 [{ text: "Menyu" }, { text: "Sozlamalar" }],
             ],
-            resize_keyboard: true
+            resize_keyboard: true,
         },
     })
 
