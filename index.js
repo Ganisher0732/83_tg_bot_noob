@@ -20,8 +20,19 @@ bot.on("message", async (msg) => {
         resize_keyboard: true,
       },
     });
-  } else if (text === "Boshlash 🔥") {
-    await bot.sendMessage(chatId, "Salom, sizga qanday yordam bera olaman?");
+  } else if (text == "Boshlash 🔥") {
+    bot.sendPhoto(chatId, "./m5.jpg", {
+      caption: "BMW M5 F90",
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: "info", callback_data: "info" },
+            { text: "photes", callback_data: "photes" },
+          ],
+          [{ text: "price", callback_data: "price" }],
+        ],
+      },
+    })
   } else if (text === "Menu 😜") {
     const kutingXabari = await bot.sendMessage(chatId, "Iltimos, kuting...");
     setTimeout(async () => {
@@ -40,7 +51,7 @@ bot.on("message", async (msg) => {
             },
           });
         } else {
-          await bot.sendMessage(chatId, "⚠️ Rasm topilmadi! (Neon Heroes in the Dark.png)");
+          await bot.sendPhoto(chatId, "./m5.jpg", );
         }
       } catch (err) {
         console.error("Xatolik:", err);
@@ -60,5 +71,30 @@ bot.on("message", async (msg) => {
 
   console.log(msg);
 });
+
+
+bot.on("callback_query", function (query){
+
+  console.log(query);
+
+  if (data == "info") {
+    bot.sendMessage(chatId, "BMW M5 F90 haqida ma'lumotlar...");
+  } else if (data == "photes") {
+    bot.sendPhoto(chatId, "./m5.jpg");
+  } else if (data == "price") {
+  bot.sendMessage(chatId, "100,000 dollar", {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: "Sotib ol", callback_data: "buy" }
+          ],
+        ],
+      },
+    });
+  } else if (data == "buy") {
+    bot.sendMessage(chatId, "Puling busa kel");
+  }
+}); 
+  
 
 console.log("✅ Bot ishga tushdi...");
