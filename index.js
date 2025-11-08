@@ -6,12 +6,11 @@ const bot = new TelegramBot(TOKEN, { polling: true });
 
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
-  const text = msg.text?.trim(); 
+  const text = msg.text?.trim();
   const firstname = msg.chat.first_name;
   const menuPhoto = "./f.webp";
   const sozlamaPhoto = "./da.jpg";
 
-  
   if (text === "/start") {
     await bot.sendMessage(chatId, `Xush kelibsiz, ${firstname}!`, {
       reply_markup: {
@@ -24,7 +23,6 @@ bot.on("message", async (msg) => {
     });
   }
 
-  
   else if (text === "Boshlash 🔥") {
     await bot.sendPhoto(chatId, "./m5.jpg", {
       caption: "BMW M5 F90",
@@ -40,7 +38,6 @@ bot.on("message", async (msg) => {
     });
   }
 
-  
   else if (text === "Sozlamalar ⚙️") {
     const photoPath = fs.existsSync(sozlamaPhoto) ? sozlamaPhoto : "./da.jpg";
     await bot.sendPhoto(chatId, photoPath, {
@@ -56,12 +53,10 @@ bot.on("message", async (msg) => {
     });
   }
 
-  
   else if (text === "Ekranni qora qilish" || text === "Bot nomini o‘zgartirish") {
     await bot.sendMessage(chatId, "O‘zgartirish uchun ishlash kerak, bomj 😄");
   }
 
-  
   else if (text === "Menu 😜") {
     const kuting = await bot.sendMessage(chatId, "Iltimos, kuting...");
     setTimeout(async () => {
@@ -72,7 +67,7 @@ bot.on("message", async (msg) => {
           caption: "🍽 Qaysini buyurtma qilasiz?",
           reply_markup: {
             keyboard: [
-              [{ text: "Manti" }, { text: "Karam" }],
+              [{ text: "Manti" }, { text: "Danar" }],
               [{ text: "Shashlik" }, { text: "Hotdog" }],
               [{ text: "Orqaga 🔙" }],
             ],
@@ -85,12 +80,16 @@ bot.on("message", async (msg) => {
     }, 1000);
   }
 
-  
-  else if (["Manti", "Karam", "Shashlik", "Hotdog"].includes(text)) {
-    await bot.sendMessage(chatId, "Yeyish uchun ishlash kerak, bo‘mij 😄");
+  else if (["Manti", "Danar", "Shashlik", "Hotdog"].includes(text)) {
+    await bot.sendMessage(chatId, "Buyurtma qabul qilindi! Endi to‘lovni quyidagi karta raqamiga yuboring 💳: 1234 5678 9012 3456", {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: "To‘lov qilindi ✅", callback_data: "paid" }],
+        ],
+      },
+    });
   }
 
-  
   else if (text === "Orqaga 🔙") {
     await bot.sendMessage(chatId, "Asosiy menuga qaytdingiz 👇", {
       reply_markup: {
@@ -108,6 +107,7 @@ bot.on("message", async (msg) => {
 bot.on("callback_query", async (query) => {
   const data = query.data;
   const chatId = query.message.chat.id;
+  await bot.answerCallbackQuery(query.id);
 
   if (data === "info") {
     await bot.sendMessage(chatId, "BMW M5 F90 — 4.4L Twin-Turbo V8, 600hp, 0-100km/h 3.4s ⚡️");
@@ -118,18 +118,16 @@ bot.on("callback_query", async (query) => {
   else if (data === "price") {
     await bot.sendMessage(chatId, "💰 Narxi: 100,000 dollar", {
       reply_markup: {
-        inline_keyboard: [
-          [{ text: "Sotib ol", callback_data: "buy" }],
-        ],
+        inline_keyboard: [[{ text: "Sotib ol", callback_data: "buy" }]],
       },
     });
   } 
   else if (data === "buy") {
     await bot.sendMessage(chatId, "💸 Puling busa kel 😄");
   }
-
-  await bot.answerCallbackQuery(query.id);
+  else if (data === "paid") {
+    await bot.sendMessage(chatId, "✅ To‘lovingiz qabul qilindi! Buyurtmangiz tez orada yetkaziladi 🚚");
+  }
 });
 
 console.log("✅ Bot ishga tushdi...");
-
