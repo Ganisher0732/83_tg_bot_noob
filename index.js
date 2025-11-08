@@ -132,3 +132,4 @@ bot.on("callback_query", async (query) => {
 });
 
 console.log("✅ Bot ishga tushdi...");
+
